@@ -15,11 +15,13 @@ export function Component(
 
   const ngComponentDecorator = NgComponent(componentMetadata);
 
+  const processedImports = componentMetadata.imports?.map((importable) => importable['module'] ?? importable) ?? [];
+
   return function(componentClazz) {
     @NgModule({
       declarations: [[componentClazz]],
       exports: [[componentClazz]],
-      imports: [CommonModule, componentMetadata.imports || []]
+      imports: [CommonModule, processedImports]
     })
     class VirtualNgModule {}
 

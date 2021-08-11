@@ -78,7 +78,7 @@ import { Component } from '@angular/core';
     </code></pre>
 
     <h3>Output</h3>
-    <standalone-with-import-component></standalone-with-import-component>
+    <standalone-importing-standalone-component></standalone-importing-standalone-component>
     <hr />
   `
 })
