@@ -3,9 +3,18 @@ import { Component } from '../../standaloneShim';
 
 export const locale = new InjectionToken<string[]>('locale');
 
+@NgModule({
+  providers: [
+    { provide: locale, multi: true, useValue: 'en' },
+    { provide: locale, multi: true, useValue: 'sk' }
+  ]
+})
+class MyNgModuleWithProvider {}
+
 @Component({
   selector: 'standalone-with-providers-component',
   standalone: true,
+  imports: [MyNgModuleWithProvider],
   // TODO: should this be explicit?
   // imports: [CommonModule]
   template: `
@@ -18,11 +27,3 @@ export const locale = new InjectionToken<string[]>('locale');
 export class StandaloneWithProvidersComponent {
   constructor(@Inject(locale) protected locales) {}
 }
-
-@NgModule({
-  providers: [
-    { provide: locale, multi: true, useValue: 'en' },
-    { provide: locale, multi: true, useValue: 'sk' }
-  ]
-})
-class NgModuleWithProvider {}

@@ -5,7 +5,10 @@ import { AppComponent } from './app.component';
 import { FirstStandaloneComponent } from './demo1/firstStandalone.component';
 import { StandaloneWithImportComponent } from './demo2/standaloneWithImport.component';
 import { StandaloneImportingStandaloneComponent } from './demo3/standaloneImportingStandalone.component.ts';
-import { StandaloneWithProvidersComponent } from './demo4/standaloneWithProviders.component';
+import {
+  StandaloneWithProvidersComponent,
+  locale
+} from './demo4/standaloneWithProviders.component';
 
 @NgModule({
   imports: [
@@ -16,6 +19,8 @@ import { StandaloneWithProvidersComponent } from './demo4/standaloneWithProvider
     StandaloneImportingStandaloneComponent['module'],
     StandaloneWithProvidersComponent['module']
   ],
+  // additional provider for demo #4
+  providers: [{ provide: locale, multi: true, useValue: 'fr' }],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })
