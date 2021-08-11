@@ -4,7 +4,7 @@ import { Directive } from '../../standaloneShim';
   selector: '[standaloneRedBorder]',
   standalone: true,
   host: {
-    style: 'border: 1px solid red'
+    style: 'border: 2px dashed red'
   }
 })
 export class StandaloneRedBorderDirective {}

@@ -1,4 +1,4 @@
-import { Component as NgComponent, Directive as NgPipe, Pipe as NgPipe, NgModule } from '@angular/core';
+import { Component as NgComponent, Directive as NgDirective, Pipe as NgPipe, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export function Component(
@@ -30,14 +30,14 @@ export function Component(
 
 
 export function Directive(
-  directiveMedatada: NgPipe & {
+  directiveMedatada: NgDirective & {
     standalone: true;
     imports?: unknown[];
   }
 ): ClassDecorator {
   //console.log(`Standalone @Directive declared:`, directiveMedatada);
 
-  const ngDirectiveDecorator = NgComponent(directiveMedatada);
+  const ngDirectiveDecorator = NgDirective(directiveMedatada);
 
   const processedImports = directiveMedatada.imports?.map((importable) => importable['module'] ?? importable) ?? [];
 
@@ -64,7 +64,7 @@ export function Pipe(
 ): ClassDecorator {
   //console.log(`Standalone @Pipe declared:`, pipeMetadata);
 
-  const ngPipeDecorator = NgComponent(pipeMetadata);
+  const ngPipeDecorator = NgPipe(pipeMetadata);
 
   const processedImports = pipeMetadata.imports?.map((importable) => importable['module'] ?? importable) ?? [];
 

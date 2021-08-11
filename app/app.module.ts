@@ -9,6 +9,8 @@ import {
   StandaloneWithProvidersComponent,
   locale
 } from './demo4/standaloneWithProviders.component';
+import { StandaloneRedBorderDirective } from './demo5/standaloneRedBorder.directive';
+import { StandaloneStarPipe } from './demo6/standaloneStar.pipe';
 
 @NgModule({
   imports: [
@@ -17,7 +19,9 @@ import {
     FirstStandaloneComponent['module'],
     StandaloneWithImportComponent['module'],
     StandaloneImportingStandaloneComponent['module'],
-    StandaloneWithProvidersComponent['module']
+    StandaloneWithProvidersComponent['module'],
+    StandaloneRedBorderDirective['module'],
+    StandaloneStarPipe['module']
   ],
   // additional provider for demo #4
   providers: [{ provide: locale, multi: true, useValue: 'fr' }],
