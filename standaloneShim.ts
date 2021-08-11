@@ -1,8 +1,15 @@
-import { Component as NgComponent, NgModule } from '@angular/core';
+import {
+  Component as NgComponent,
+  NgModule,
+  ModuleWithProviders
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export function Component(
-  componentMetadata: NgComponent & { standalone: true }
+  componentMetadata: NgComponent & {
+    standalone: true;
+    imports: unknown[];
+  }
 ): ClassDecorator {
   console.log(`Standalone @Component declared:`, componentMetadata);
 
@@ -12,7 +19,7 @@ export function Component(
     @NgModule({
       declarations: [[componentClazz]],
       exports: [[componentClazz]],
-      imports: [CommonModule]
+      imports: [CommonModule, componentMetadata.imports]
     })
     class VirtualNgModule {}
 
