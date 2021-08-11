@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
     <p>Simple component with no dependencies</p>
 
     <pre><code ngNonBindable>
-      @Component({{
+      @Component(&#x007B;
         selector: 'first-standalone-component',
         standalone: true,
         template: \`
@@ -15,8 +15,8 @@ import { Component } from '@angular/core';
           &lt;button (click)="confirm()">click to confirm&lt;/button>
         \`
       })
-      export class FirstStandaloneComponent {{
-        confirm() {
+      export class FirstStandaloneComponent &#x007B;
+        confirm() &#x007B;
           console.log('confirmed!');
         }
       }
@@ -28,6 +28,8 @@ import { Component } from '@angular/core';
     <first-standalone-component></first-standalone-component>
     <hr />
 
+    <!-------------- ------------->
+
     <h2>Demo #2: Standalone Component that imports an existing NgModule</h2>
     <p>
       This one imports FormsModule - an existing NgModule - to demonstrate
@@ -35,7 +37,7 @@ import { Component } from '@angular/core';
     </p>
 
     <pre><code ngNonBindable>
-      @Component({{
+      @Component(&#x007B;
         selector: 'standalone-with-import-component',
         standalone: true,
         imports: [FormsModule],
@@ -45,9 +47,34 @@ import { Component } from '@angular/core';
           (name = {{ name }})
         \`
       })
-      export class StandaloneWithImport {{
+      export class StandaloneWithImportComponent &#x007B;
         name = 'Daft Punk';
       }
+    </code></pre>
+
+    <h3>Output</h3>
+    <standalone-with-import-component></standalone-with-import-component>
+    <hr />
+
+    <!-------------- ------------->
+
+    <h2>Demo #3: Standalone Component that imports a standalone Component</h2>
+    <p>
+      This one imports <code>FirstStandaloneComponent</code> to show off
+      composability.
+    </p>
+
+    <pre><code ngNonBindable>
+      @Component(&#x007B;
+        selector: 'standalone-importing-standalone-component',
+        standalone: true,
+        imports: [FirstStandaloneComponent],
+        template: \`
+          Turtles all the way down:
+          &lt;first-standalone-component>&lt;/first-standalone-component>
+        \`
+      })
+      export class StandaloneImportingStandaloneComponent &#x007B;}
     </code></pre>
 
     <h3>Output</h3>

@@ -1,5 +1,5 @@
 import { FormsModule } from '@angular/forms';
-import { Component } from '../standaloneShim';
+import { Component } from '../../standaloneShim';
 
 @Component({
   selector: 'standalone-with-import-component',
@@ -9,6 +9,6 @@ import { Component } from '../standaloneShim';
     Forms work: <input [(ngModel)]="name" /> (name = {{ name }})
   `
 })
-export class StandaloneWithImport {
+export class StandaloneWithImportComponent {
   name = 'Daft Punk';
 }

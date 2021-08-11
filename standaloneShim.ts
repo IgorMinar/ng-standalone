@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 export function Component(
   componentMetadata: NgComponent & {
     standalone: true;
-    imports: unknown[];
+    imports?: unknown[];
   }
 ): ClassDecorator {
   console.log(`Standalone @Component declared:`, componentMetadata);

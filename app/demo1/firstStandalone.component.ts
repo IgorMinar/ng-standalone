@@ -1,4 +1,4 @@
-import { Component } from '../standaloneShim';
+import { Component } from '../../standaloneShim';
 
 @Component({
   selector: 'first-standalone-component',
