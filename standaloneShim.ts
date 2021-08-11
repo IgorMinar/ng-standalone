@@ -1,18 +1,21 @@
-import { Component, NgModule } from '@angular/core';
+import { Component as NgComponent, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export function Component(
-  componentMetadata: Component & { standalone: true }
+  componentMetadata: NgComponent & { standalone: true }
 ): ClassDecorator {
   console.log(`Standalone @Component declared:`, componentMetadata);
 
-  const compotentClazz = Component(componentMetadata);
+  const ngComponentDecorator = NgComponent(componentMetadata);
 
-  @NgModule({
-    declarations: [[compotentClazz]],
-    imports: [CommonModule]
-  })
-  class VirtualNgModule {}
+  return function(componentClazz) {
+    @NgModule({
+      declarations: [[componentClazz]],
+      exports: [[componentClazz]],
+      imports: [CommonModule]
+    })
+    class VirtualNgModule {}
 
-  return compotentClazz;
+    return ngComponentDecorator(componentClazz);
+  };
 }
