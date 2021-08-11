@@ -202,7 +202,7 @@ import { Component } from '@angular/core';
       }
     </code></pre>
 
-    <h3>Output</h3>
+    <h3>Output (WIP: still not working)</h3>
     <hr />
     <dynamically-loading-component></dynamically-loading-component>
     <hr />

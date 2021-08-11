@@ -34,9 +34,11 @@ export class DynamicallyLoadingComponent {
     // this.vcRef.createComponent(StandaloneWithProvidersComponent)
 
     // TODO: This version works, even though it should be equivalent...
-    import('../demo4/standaloneWithProviders.component').then(
+    import('./dynamicallyLoaded.component').then(
       esModule =>
-        this.vcRef.createComponent(esModule.StandaloneWithProvidersComponent),
+        this.vcRef.createComponent(
+          esModule.DynamicallyLoadedStandaloneComponent
+        ),
       err => console.log(err)
     );
   }
