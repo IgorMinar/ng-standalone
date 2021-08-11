@@ -1,11 +1,22 @@
 <h1>Angular Standalone Component Demo</h1>
 
 <p>This is a simple demo project, that shows what a standalone <code>@Component</code>, <code>@Directive</code>, and
-  <code>@Pipe</code> in Angular could look
-  like in the future.
+  <code>@Pipe</code> in Angular could look like in the future.
 </p>
 
-<p>The demo is built by wrapping an existing <code>@Component</code> decorator and generating a hidden (virtual)
+<p>The mental model of standalone Components, Directives, and Pipes is simple:</p>
+<ul>
+  <li>each component, directive, and pipe class is shadowed by a "virtual" NgModule that is automatically created by the system.</li>
+  <li>this NgModule declares only the single entity that it shadows</li>
+  <li>any existing NgModule or API that accepts NgModules can import the standalone entity directly</li>
+  <li>a standalone entity can import any other standalone entity, or an existing NgModule</li>
+  <li>importing a non-standalone entity directly anywhere in the system is an error</li>
+  <li>declaring a standalone entity in an NgModule is an error</li>
+  <li>to make it clear to both the code reader, as well as the compiler which entity is standalone, we use syntatic element in the form of <code>standalone</code> property within the decorator metadata</li>
+  <li>in the future, if the "standalone" style is accepted by the community, the <code>standalone</code> property could default to <code>true</code> and become optional</li>
+</ul>
+
+<p>Demo implementation notes: The demo is built by wrapping an existing <code>@Component</code> decorator and generating a hidden (virtual)
   NgModule. The
   application, including the standalone component, is then compiled using the JIT compiler.</p>
 

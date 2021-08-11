@@ -1,8 +1,4 @@
-import {
-  Component as NgComponent,
-  NgModule,
-  ModuleWithProviders
-} from '@angular/core';
+import { Component as NgComponent, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export function Component(
