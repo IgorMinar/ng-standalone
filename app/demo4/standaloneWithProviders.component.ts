@@ -14,9 +14,11 @@ class MyNgModuleWithProvider {}
 @Component({
   selector: 'standalone-with-providers-component',
   standalone: true,
-  imports: [MyNgModuleWithProvider],
-  // TODO: should this be explicit?
-  // imports: [CommonModule]
+  imports: [
+    MyNgModuleWithProvider
+    // TODO: should this be explicit?
+    // CommonModule
+  ],
   template: `
     Supported locales:
     <ul>

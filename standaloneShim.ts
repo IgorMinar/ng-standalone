@@ -84,6 +84,7 @@ export function Pipe(
   };
 }
 
+/** TODO: the following version doesn't work because viewContainerRef is null for some reason
 @Injectable()
 export class ViewContainerRefShim {
   constructor(
@@ -101,3 +102,17 @@ export class ViewContainerRefShim {
 }
 
 export const viewContainerRefShim = {provide: ViewContainerRefShim, useClass: ViewContainerRefShim};
+
+*/
+
+export class ViewContainerRefShim {
+  constructor(
+    private viewContainerRef: ViewContainerRef,
+    private componentFactoryResolver: ComponentFactoryResolver) {}
+
+  createComponent<T>(componetClazz: Type<T>) {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componetClazz);
+    
+    this.viewContainerRef.createComponent(componentFactory);
+  }
+}
