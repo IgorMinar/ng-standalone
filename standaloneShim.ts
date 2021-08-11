@@ -92,10 +92,11 @@ export class ViewContainerRefShim {
     @Inject(ComponentFactoryResolver) private componentFactoryResolver: ComponentFactoryResolver) {}
 
   createComponent<T>(componetClazz: Type<T>) {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componetClazz);
+    
     // TODO: why the heck is viewContainerRef null? it was supposed to be provided for the component.
     console.log('viewContainerRef: ', this.viewContainerRef);
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componetClazz);
-    this.viewContainerRef.createComponent(componentFactory);
+    //this.viewContainerRef.createComponent(componentFactory);
   }
 }
 
