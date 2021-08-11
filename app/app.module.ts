@@ -25,11 +25,9 @@ import { DynamicallyLoadedComponent } from './demo7/dynamicallyLoaded.component'
     StandaloneRedBorderDirective['module'],
     StandaloneStarPipe['module'],
     DynamicallyLoadingComponent['module'],
-    // TODO: this is needed for demo #7 right now but should be
+    // TODO: this is needed for demo #7 right now but should NOT be
     DynamicallyLoadedComponent['module']
   ],
-  // TODO: this is needed for demo #7 right now but should be
-  entryComponents: [DynamicallyLoadedComponent],
   // additional provider for demo #4
   providers: [{ provide: locale, multi: true, useValue: 'fr' }],
   declarations: [AppComponent],
