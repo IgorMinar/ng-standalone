@@ -3,14 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { FirstStandaloneComponent } from './firstStandalone.component';
+import { StandaloneWithImport } from './standaloneWithImport.component';
 
 @NgModule({
   imports: [
-    BrowserModule
+    BrowserModule,
     // hack: this will become just FirstStandaloneComponent in final version
-    // FirstStandaloneComponent.module
+    FirstStandaloneComponent['module'],
+    StandaloneWithImport['module']
   ],
-  declarations: [AppComponent, FirstStandaloneComponent],
+  declarations: [AppComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

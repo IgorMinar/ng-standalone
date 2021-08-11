@@ -1,14 +1,12 @@
 import { FormsModule } from '@angular/forms';
 import { Component } from '../standaloneShim';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'standalone-with-import-component',
   standalone: true,
   imports: [FormsModule],
   template: `
-    I'm first!
-    <button (click)="confirm()">click to confirm</button>
+    Forms work: <input [(ngModel)]="name" /> (name = {{ name }})
   `
 })
 export class StandaloneWithImport {

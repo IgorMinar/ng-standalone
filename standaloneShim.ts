@@ -19,9 +19,11 @@ export function Component(
     @NgModule({
       declarations: [[componentClazz]],
       exports: [[componentClazz]],
-      imports: [CommonModule, componentMetadata.imports]
+      imports: [CommonModule, componentMetadata.imports || []]
     })
     class VirtualNgModule {}
+
+    componentClazz['module'] = VirtualNgModule;
 
     return ngComponentDecorator(componentClazz);
   };
