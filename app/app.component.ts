@@ -179,6 +179,33 @@ import { Component } from '@angular/core';
     <hr />
     {{ 'hello there' | standaloneStar }}
     <hr />
+
+    <!-------------- ------------->
+
+    <h2>Demo #7: Dynamically Loaded Standalone Component</h2>
+    <b>THIS DEMO IS WIP AND NOT WORKING YET</b>
+    <p>
+      Standalone components can be dynamically loaded.
+    </p>
+
+    <pre><code ngNonBindable>
+      @Component(&#x007B;
+        selector: 'dynamicly-loading-component',
+        standalone: true,
+        template: 'dynamically loaded: ',
+      })
+      export class DynamicallyLoadingComponent &#x007B;
+        constructor(viewContainerRef: ViewContainerRefShim
+        ) &#x007B;
+          viewContainerRef.createComponent(FirstStandaloneComponent);
+        }
+      }
+    </code></pre>
+
+    <h3>Output</h3>
+    <hr />
+    <dynamically-loading-component></dynamically-loading-component>
+    <hr />
   `
 })
 export class AppComponent {}

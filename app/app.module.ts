@@ -11,6 +11,7 @@ import {
 } from './demo4/standaloneWithProviders.component';
 import { StandaloneRedBorderDirective } from './demo5/standaloneRedBorder.directive';
 import { StandaloneStarPipe } from './demo6/standaloneStar.pipe';
+import { DynamicallyLoadingComponent } from './demo7/dynamicallyLoading.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { StandaloneStarPipe } from './demo6/standaloneStar.pipe';
     StandaloneImportingStandaloneComponent['module'],
     StandaloneWithProvidersComponent['module'],
     StandaloneRedBorderDirective['module'],
-    StandaloneStarPipe['module']
+    StandaloneStarPipe['module'],
+    DynamicallyLoadingComponent['module']
   ],
   // additional provider for demo #4
   providers: [{ provide: locale, multi: true, useValue: 'fr' }],
