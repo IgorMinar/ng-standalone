@@ -6,10 +6,14 @@ import { Component } from '../../standaloneShim';
   template: `
     I'm first!
     <button (click)="confirm()">click to confirm</button>
+    {{ counter }}
   `
 })
 export class FirstStandaloneComponent {
+  counter = 0;
+
   confirm() {
+    this.counter++;
     console.log('confirmed!');
   }
 }

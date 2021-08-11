@@ -6,10 +6,14 @@ import { Component } from '../../standaloneShim';
   template: `
     I'm dynamically loaded!
     <button (click)="confirm()">click to confirm</button>
+    {{ counter }}
   `
 })
-export class DynamicallyLoadedStandaloneComponent {
+export class DynamicallyLoadedComponent {
+  counter = 0;
+
   confirm() {
+    this.counter++;
     console.log('confirmed!');
   }
 }

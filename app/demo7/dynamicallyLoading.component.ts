@@ -27,18 +27,19 @@ export class DynamicallyLoadingComponent {
     this.vcRef = new ViewContainerRefShim(vcRef, cfResolver);
   }
 
-  ngOnInit() {
+  // TODO: this code only works because the loaded component is registered in AppModule, this should not be required!
+  async ngOnInit() {
     // TODO: Why doesn't the following work?!?!
     //       it seems that we don't propagate CD ticks, or something like that
-    // const {StandaloneWithProvidersComponent} = await import('../demo4/standaloneWithProviders.component');
-    // this.vcRef.createComponent(StandaloneWithProvidersComponent)
+    // const {
+    //   DynamicallyLoadedComponent
+    // } = await import('./dynamicallyLoaded.component');
+    // this.vcRef.createComponent(DynamicallyLoadedComponent);
 
     // TODO: This version works, even though it should be equivalent...
     import('./dynamicallyLoaded.component').then(
       esModule =>
-        this.vcRef.createComponent(
-          esModule.DynamicallyLoadedStandaloneComponent
-        ),
+        this.vcRef.createComponent(esModule.DynamicallyLoadedComponent),
       err => console.log(err)
     );
   }

@@ -13,10 +13,14 @@ import { Component } from '@angular/core';
         template: \`
           I'm first!
           &lt;button (click)="confirm()">click to confirm&lt;/button>
+          &#x007B;&#x007B;counter}}
         \`
       })
       export class FirstStandaloneComponent &#x007B;
+        counter = 0;
+
         confirm() &#x007B;
+          this.counter++;
           console.log('confirmed!');
         }
       }
@@ -183,26 +187,26 @@ import { Component } from '@angular/core';
     <!-------------- ------------->
 
     <h2>Demo #7: Dynamically Loaded Standalone Component</h2>
-    <b>THIS DEMO IS WIP AND NOT WORKING YET</b>
+    <b>THIS DEMO IS WIP AND NOT YET WORKING CORRECTLY</b>
     <p>
       Standalone components can be dynamically loaded.
     </p>
 
     <pre><code ngNonBindable>
-      @Component(&#x007B;
-        selector: 'dynamicly-loading-component',
-        standalone: true,
-        template: 'dynamically loaded: ',
-      })
       export class DynamicallyLoadingComponent &#x007B;
-        constructor(viewContainerRef: ViewContainerRefShim
-        ) &#x007B;
-          viewContainerRef.createComponent(FirstStandaloneComponent);
+        constructor(
+          private vcRef: ViewContainerRef,
+        ) &#x007B;}
+
+        async ngOnInit() &#x007B;
+          const &#x007B; DynamicallyLoadedComponent } = await import('./dynamicallyLoaded.component');
+          this.vcRef.createComponent(DynamicallyLoadedComponent);
         }
       }
+
     </code></pre>
 
-    <h3>Output (WIP: still not working)</h3>
+    <h3>Output (WIP: not yet working without major hacks)</h3>
     <hr />
     <dynamically-loading-component></dynamically-loading-component>
     <hr />
