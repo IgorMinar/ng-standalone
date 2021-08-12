@@ -5,10 +5,8 @@ import {
 } from '@angular/core';
 import {
   Component,
-  viewContainerRefShim,
-  ViewContainerRefShim
+  viewContainerRefShim
 } from '../../standaloneShim';
-import { FirstStandaloneComponent } from '../demo1/firstStandalone.component';
 
 @Component({
   selector: 'dynamically-loading-component',
