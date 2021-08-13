@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { FirstStandaloneComponent } from './demo1/firstStandalone.component';
 import { StandaloneWithImportComponent } from './demo2/standaloneWithImport.component';
-import { StandaloneImportingStandaloneComponent } from './demo3/standaloneImportingStandalone.component.ts';
+import { StandaloneImportingStandaloneComponent } from './demo3/standaloneImportingStandalone.component';
 import {
   StandaloneWithProvidersComponent,
   locale
@@ -13,6 +13,7 @@ import { StandaloneRedBorderDirective } from './demo5/standaloneRedBorder.direct
 import { StandaloneStarPipe } from './demo6/standaloneStar.pipe';
 import { DynamicallyLoadingComponent } from './demo7/dynamicallyLoading.component';
 import { DynamicallyLoadedComponent } from './demo7/dynamicallyLoaded.component';
+import { ExportingComponent } from './demo8/exporting.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { DynamicallyLoadedComponent } from './demo7/dynamicallyLoaded.component'
     StandaloneStarPipe['module'],
     DynamicallyLoadingComponent['module'],
     // TODO: this is needed for demo #7 right now but should NOT be
-    DynamicallyLoadedComponent['module']
+    DynamicallyLoadedComponent['module'],
+    ExportingComponent['module']
   ],
   // additional provider for demo #4
   providers: [{ provide: locale, multi: true, useValue: 'fr' }],

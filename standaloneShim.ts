@@ -4,7 +4,9 @@ import { CommonModule } from '@angular/common';
 export function Component(
   componentMetadata: NgComponent & {
     standalone: true;
+    // TODO: use proper types instead of unkown
     imports?: unknown[];
+    exports?: unknown[];
   }
 ): ClassDecorator {
   //console.log(`Standalone @Component declared:`, componentMetadata);
@@ -12,15 +14,16 @@ export function Component(
   const ngComponentDecorator = NgComponent(componentMetadata);
 
   const processedImports = componentMetadata.imports?.map((importable) => importable['module'] ?? importable) ?? [];
+  const processedExports = componentMetadata.exports?.map((importable) => importable['module'] ?? importable) ?? [];
 
   return function(componentClazz) {
     @NgModule({
       declarations: [[componentClazz]],
-      exports: [[componentClazz]],
+      exports: [[componentClazz], processedExports],
       // TODO: surprisingly the JIT compiler still requires entryComponents for ComponentFactoryResolver to work
       entryComponents: [[componentClazz]],
       // TODO: is it a good idea to include CommonModule by default?
-      imports: [CommonModule, processedImports]
+      imports: [CommonModule, processedImports],
     })
     class VirtualNgModule {}
 
