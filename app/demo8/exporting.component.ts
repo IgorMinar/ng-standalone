@@ -1,4 +1,5 @@
 import { Component, Directive, Pipe } from '../../standaloneShim';
+import { PipeTransform } from '@angular/core';
 
 @Directive({
   selector: '[blueBorder]',
