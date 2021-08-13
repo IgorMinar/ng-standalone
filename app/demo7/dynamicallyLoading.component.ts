@@ -3,10 +3,7 @@ import {
   Inject,
   ViewContainerRef
 } from '@angular/core';
-import {
-  Component,
-  viewContainerRefShim
-} from '../../standaloneShim';
+import { Component, ViewContainerRefShim } from '../../standaloneShim';
 
 @Component({
   selector: 'dynamically-loading-component',
