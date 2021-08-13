@@ -1,4 +1,4 @@
-import { Component as NgComponent, Directive as NgDirective, Pipe as NgPipe, NgModule, ViewContainerRef, ComponentFactoryResolver, Type, Injectable, Inject } from '@angular/core';
+import { Component as NgComponent, Directive as NgDirective, Pipe as NgPipe, NgModule, ViewContainerRef, ComponentFactoryResolver, Type, Injectable, Inject, SchemaMetadata } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export function Component(
@@ -7,6 +7,7 @@ export function Component(
     // TODO: use proper types instead of unkown
     imports?: unknown[];
     exports?: unknown[];
+    schemas?: Array<SchemaMetadata|any[]>;
   }
 ): ClassDecorator {
   //console.log(`Standalone @Component declared:`, componentMetadata);
@@ -24,6 +25,7 @@ export function Component(
       entryComponents: [[componentClazz]],
       // TODO: is it a good idea to include CommonModule by default?
       imports: [CommonModule, processedImports],
+      schemas: componentMetadata.schemas,
     })
     class VirtualNgModule {}
 
