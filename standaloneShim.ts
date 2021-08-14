@@ -1,4 +1,4 @@
-import { Component as NgComponent, Directive as NgDirective, Pipe as NgPipe, NgModule, ViewContainerRef, ComponentFactoryResolver, Type, Injectable, Inject, SchemaMetadata, Provider } from '@angular/core';
+import { Component as NgComponent, Directive as NgDirective, Pipe as NgPipe, NgModule, ViewContainerRef, ComponentFactoryResolver, Type, ModuleWithProviders, Inject, SchemaMetadata, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -7,9 +7,10 @@ export function Component(
   componentMetadata: NgComponent & {
     standalone: true;
     // TODO: tighten up the types
-    imports?: unknown[];
-    exports?: unknown[];
-    // TODO: Is this a good idea?
+    imports?: Array<Type<unknown> | ModuleWithProviders<unknown>>;
+    // TODO: is it a good idea to widen the type to support Provider[]?
+    exports?: Array<Type<unknown>|Provider[]>;
+    // TODO: Remove if we do keep `exports` with support for Provider[]
     exportedProviders?: Provider[];
     schemas?: Array<SchemaMetadata|any[]>;
   }
@@ -18,8 +19,18 @@ export function Component(
 
   const ngComponentDecorator = NgComponent(componentMetadata);
 
+  const exportedProviders = [];
   const processedImports = componentMetadata.imports?.map((importable) => importable['module'] ?? importable) ?? [];
-  const processedExports = componentMetadata.exports?.map((importable) => importable['module'] ?? importable) ?? [];
+  const processedExports = componentMetadata.exports?.map((exportable) => {
+    // try to extract providers
+    if (Array.isArray(exportable)) {
+      exportedProviders.push(exportable);
+      return [];
+    }
+    // if no providers then return the standalone virtual module,
+    // or fall back on the assumption that the exportable is an NgModule.
+    return exportable['module'] ?? exportable
+  }) ?? [];
 
   return function(componentClazz) {
     @NgModule({
@@ -29,7 +40,7 @@ export function Component(
       exports: [[componentClazz], processedExports],
       // TODO: surprisingly the JIT compiler still requires entryComponents for ComponentFactoryResolver to work
       entryComponents: [[componentClazz]],
-      providers: componentMetadata.exportedProviders ?? [],
+      providers: (exportedProviders.length ? exportedProviders : null) ?? componentMetadata.exportedProviders ?? [],
       schemas: componentMetadata.schemas,
     })
     class VirtualNgModule {}
