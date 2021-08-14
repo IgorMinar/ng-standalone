@@ -131,6 +131,46 @@ import { Component } from '@angular/core';
 
     <!-------------- ------------->
 
+    <h2>Demo #4b: Standalone Component with Exported Multi Providers</h2>
+    <p>
+      This one provides a multiprovider which it then uses in the template like
+      demo #4 but instead of requiring an intermediate NgModule
+      "MyNgModuleWithProvider", we use the new
+      <code>exportedProviders</code> property.
+    </p>
+
+    <pre><code ngNonBindable>
+    export const localeB = new InjectionToken&lt;string[]>('locale');
+
+    @Component(&#x007B;
+      selector: 'standalone-with-exported-providers-component',
+      standalone: true,
+      // TODO: should this be explicit?
+      // imports: [CommonModule],
+      exportedProviders: [
+        &#x007B; provide: localeB, multi: true, useValue: 'en' },
+        &#x007B; provide: localeB, multi: true, useValue: 'sk' }
+      ],
+      template: \`
+        Supported locales:
+        &lt;ul>
+          &lt;li *ngFor="let locale of locales">&#x007B;&#x007B; locale }}&lt;/li>
+        &lt;/ul>
+      \`
+    })
+    export class StandaloneWithProvidersComponent &#x007B;
+      constructor(@Inject(locale) protected locales) &#x007B;}
+    }
+    
+    </code></pre>
+
+    <h3>Output</h3>
+    <hr />
+    <standalone-with-exported-providers-component></standalone-with-exported-providers-component>
+    <hr />
+
+    <!-------------- ------------->
+
     <h2>Demo #5: Standalone Directive</h2>
     <p>
       This shows that standalone directives work in the same style as standalone

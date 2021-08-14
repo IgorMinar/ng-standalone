@@ -1,12 +1,14 @@
-import { Component as NgComponent, Directive as NgDirective, Pipe as NgPipe, NgModule, ViewContainerRef, ComponentFactoryResolver, Type, Injectable, Inject, SchemaMetadata } from '@angular/core';
+import { Component as NgComponent, Directive as NgDirective, Pipe as NgPipe, NgModule, ViewContainerRef, ComponentFactoryResolver, Type, Injectable, Inject, SchemaMetadata, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export function Component(
   componentMetadata: NgComponent & {
     standalone: true;
-    // TODO: use proper types instead of unkown
+    // TODO: tighten up the types
     imports?: unknown[];
     exports?: unknown[];
+    // TODO: Is this a good idea?
+    exportedProviders?: Provider[];
     schemas?: Array<SchemaMetadata|any[]>;
   }
 ): ClassDecorator {
@@ -20,11 +22,12 @@ export function Component(
   return function(componentClazz) {
     @NgModule({
       declarations: [[componentClazz]],
+      // TODO: is it a good idea to include CommonModule by default?
+      imports: [CommonModule, processedImports],
       exports: [[componentClazz], processedExports],
       // TODO: surprisingly the JIT compiler still requires entryComponents for ComponentFactoryResolver to work
       entryComponents: [[componentClazz]],
-      // TODO: is it a good idea to include CommonModule by default?
-      imports: [CommonModule, processedImports],
+      providers: componentMetadata.exportedProviders ?? [],
       schemas: componentMetadata.schemas,
     })
     class VirtualNgModule {}

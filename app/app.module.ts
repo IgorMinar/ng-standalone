@@ -9,6 +9,10 @@ import {
   StandaloneWithProvidersComponent,
   locale
 } from './demo4/standaloneWithProviders.component';
+import {
+  StandaloneWithExportedProvidersComponent,
+  localeB
+} from './demo4b/standaloneWithExportedProviders.component';
 import { StandaloneRedBorderDirective } from './demo5/standaloneRedBorder.directive';
 import { StandaloneStarPipe } from './demo6/standaloneStar.pipe';
 import { DynamicallyLoadingComponent } from './demo7/dynamicallyLoading.component';
@@ -23,6 +27,7 @@ import { ExportingComponent } from './demo8/exporting.component';
     StandaloneWithImportComponent['module'],
     StandaloneImportingStandaloneComponent['module'],
     StandaloneWithProvidersComponent['module'],
+    StandaloneWithExportedProvidersComponent['module'],
     StandaloneRedBorderDirective['module'],
     StandaloneStarPipe['module'],
     DynamicallyLoadingComponent['module'],
@@ -30,8 +35,11 @@ import { ExportingComponent } from './demo8/exporting.component';
     DynamicallyLoadedComponent['module'],
     ExportingComponent['module']
   ],
-  // additional provider for demo #4
-  providers: [{ provide: locale, multi: true, useValue: 'fr' }],
+  // additional provider for demo #4 and #4b
+  providers: [
+    { provide: locale, multi: true, useValue: 'fr' },
+    { provide: localeB, multi: true, useValue: 'fr' }
+  ],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })
