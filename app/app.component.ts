@@ -341,6 +341,51 @@ import { Component } from '@angular/core';
       <exported-child-component></exported-child-component>
     </exporting-component>
     <hr />
+
+    <!-------------- ------------->
+
+    <h2>Demo #9: Bootstrap standalone component</h2>
+    <p>
+      Standalone components can be bootstrapped!
+    </p>
+
+    <pre><code ngNonBindable>
+      @Component(&#x007B;
+        selector: 'bootstrapped-standalone-component',
+        standalone: true,
+        template: \`
+          I'm bootstrapped!
+          &lt;button (click)="confirm()">click to confirm&lt;/button>
+          &#x007B;&#x007B; counter }}
+        \`
+      })
+      export class BootstrappedStandaloneComponent &#x007B;
+        counter = 0;
+      
+        confirm() &#x007B;
+          this.counter++;
+          console.log('confirmed!');
+        }
+      }
+      <hr>
+      
+      &lt;bootstrapped-standalone-component>&lt;/bootstrapped-standalone-component>
+
+      <hr>
+
+      bootstrapComponent(BootstrappedStandaloneComponent).then(() => &#x007B;
+        console.log('bootstrapped standalone component!');
+      });
+    </code></pre>
+
+    <h3>Output</h3>
+    <hr />
+
+    <!-- hack: use ngNonBindable to disconnect to prevent the compiler from considering the following to be component nested under the AppComponent. -->
+    <div ngNonBindable>
+      <bootstrapped-standalone-component></bootstrapped-standalone-component>
+    </div>
+    <hr />
   `
 })
 export class AppComponent {}

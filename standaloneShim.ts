@@ -1,5 +1,7 @@
 import { Component as NgComponent, Directive as NgDirective, Pipe as NgPipe, NgModule, ViewContainerRef, ComponentFactoryResolver, Type, Injectable, Inject, SchemaMetadata, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 export function Component(
   componentMetadata: NgComponent & {
@@ -123,4 +125,14 @@ export class ViewContainerRefShim {
     
     this.viewContainerRef.createComponent(componentFactory);
   }
+}
+
+export function bootstrapComponent<T>(componetClazz: Type<T>, platformModule = BrowserModule) {
+  @NgModule({
+    imports: [platformModule, componetClazz['module']],
+    bootstrap: [componetClazz]
+  })
+  class VirtualBootstrapNgModule {}
+
+  return platformBrowserDynamic().bootstrapModule(VirtualBootstrapNgModule);
 }
