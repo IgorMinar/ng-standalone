@@ -18,10 +18,10 @@ const routes: Routes = [
     path: 'route3',
     // lazy
     // HACK: this should realy be just:
-    //       loadChildren: () => import('./standaloneRoute2.component')
+    //       loadChildren: () => import('./standaloneRoute3.component')
     loadChildren: () =>
       import('./standaloneRoute3.component').then(
-        module => module.StandaloneRoute3Component['module']
+        m => m.StandaloneRoute3Component['module']
       )
   }
 ];
