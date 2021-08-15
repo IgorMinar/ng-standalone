@@ -21,6 +21,7 @@ export function Component(
 
   const exportedProviders = [];
   const processedImports = componentMetadata.imports?.map((importable) => importable['module'] ?? importable) ?? [];
+
   const processedExports = componentMetadata.exports?.map((exportable) => {
     // try to extract providers
     if (Array.isArray(exportable)) {

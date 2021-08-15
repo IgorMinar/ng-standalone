@@ -19,6 +19,8 @@ platformBrowserDynamic()
   .catch(err => console.error(err));
 
 // demo #9
-bootstrapComponent(BootstrappedStandaloneComponent).then(() => {
-  console.log('bootstrapped standalone component!');
-});
+setTimeout(() =>
+  bootstrapComponent(BootstrappedStandaloneComponent).then(() => {
+    console.log('bootstrapped standalone component!');
+  })
+);

@@ -22,6 +22,7 @@ import { StandaloneStarPipe } from './demo6/standaloneStar.pipe';
 import { DynamicallyLoadingComponent } from './demo7/dynamicallyLoading.component';
 import { DynamicallyLoadedComponent } from './demo7/dynamicallyLoaded.component';
 import { ExportingComponent } from './demo8/exporting.component';
+import { StandaloneWithRoutesComponent } from './demo_10/standaloneWithRoutes.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { ExportingComponent } from './demo8/exporting.component';
     DynamicallyLoadingComponent['module'],
     // TODO: this is needed for demo #7 right now but should NOT be
     DynamicallyLoadedComponent['module'],
-    ExportingComponent['module']
+    ExportingComponent['module'],
+    StandaloneWithRoutesComponent['module']
   ],
   // additional provider for demo #4, #4b, and #4c
   providers: [
