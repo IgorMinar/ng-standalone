@@ -273,6 +273,11 @@ import { Component, ElementRef, Inject } from '@angular/core';
     </p>
 
     <pre><code ngNonBindable>
+      @Component(&#x007B;
+        selector: 'dynamically-loading-component',
+        standalone: true,
+        template: 'dynamically loaded: '
+      })
       export class DynamicallyLoadingComponent &#x007B;
         constructor(
           private vcRef: ViewContainerRef,
