@@ -2,6 +2,9 @@ import { Component } from '../../standaloneShim';
 import { forwardRef, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+// TODO: It seems really silly that for leaf child routes, we require this boiler-plate.
+//       Could we make it so that you simply export a standalone component and if it has
+//       no child Routes then we consider it to be the leaf, and that's that?
 const routes: Routes = [
   {
     path: '',
