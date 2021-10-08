@@ -107,27 +107,6 @@ export function Pipe(
   };
 }
 
-/** TODO: the following version doesn't work because viewContainerRef is null for some reason
-@Injectable()
-export class ViewContainerRefShim {
-  constructor(
-    // TODO: why is @Inject required here? Some weird JIT thing?
-    @Inject(ViewContainerRef) private viewContainerRef: ViewContainerRef,
-    @Inject(ComponentFactoryResolver) private componentFactoryResolver: ComponentFactoryResolver) {}
-
-  createComponent<T>(componetClazz: Type<T>) {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componetClazz);
-    
-    // TODO: why the heck is viewContainerRef null? it was supposed to be provided for the component.
-    console.log('viewContainerRef: ', this.viewContainerRef);
-    //this.viewContainerRef.createComponent(componentFactory);
-  }
-}
-
-export const viewContainerRefShim = {provide: ViewContainerRefShim, useClass: ViewContainerRefShim};
-
-*/
-
 export class ViewContainerRefShim {
   constructor(
     private viewContainerRef: ViewContainerRef,
