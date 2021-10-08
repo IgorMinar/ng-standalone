@@ -108,9 +108,7 @@ import { Component, ElementRef, Inject } from '@angular/core';
     @Component(&#x007B;
       selector: 'standalone-with-providers-component',
       standalone: true,
-      imports: [MyNgModuleWithProvider],
-      // TODO: should this be explicit?
-      // imports: [CommonModule]
+      imports: [CommonModule, MyNgModuleWithProvider],      
       template: \`
         Supported locales:
         &lt;ul>
