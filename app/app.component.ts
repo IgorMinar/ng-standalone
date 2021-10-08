@@ -253,62 +253,6 @@ import { Component, ElementRef, Inject } from '@angular/core';
 
     <div id="boostrappedStandaloneComponentPlaceholder"></div>
     <hr />
-
-    <!-------------- ------------->
-
-    <h2>Demo #10: Routable standalone components</h2>
-    <p>
-      Standalone components can define routes and be routed to!
-    </p>
-
-    <pre><code ngNonBindable>
-    const routes: Routes = [
-      &#x007B;
-        path: '',
-        // eager
-        component: StandaloneRoute1Component
-      },
-      &#x007B;
-        path: 'route2',
-        // eager
-        component: StandaloneRoute2Component
-      },
-      &#x007B;
-        path: 'route3',
-        // lazy
-        // HACK: this should realy be just:
-        //       import('./standaloneRoute2.component')
-        loadChildren: () =>
-          import('./standaloneRoute3.component').then(
-            module => module.StandaloneRoute3Component['module']
-          )
-      }
-    ];
-    
-    @Component(&#x007B;
-      selector: 'standalone-with-routes-component',
-      standalone: true,
-      imports: [
-        // TODO: forRoot could reexport the components so that they don't need to be declared here
-        StandaloneRoute1Component,
-        StandaloneRoute2Component,
-        RouterModule.forRoot(routes)
-      ],
-      template: \`
-        &lt;button routerLink="">Route 1&lt;/button>
-        &lt;button routerLink="/route2">Route 2&lt;/button>
-        &lt;button routerLink="/route3">Lazy Route 3&lt;/button>
-    
-        &lt;router-outlet>&lt;/router-outlet>
-      \`
-    })
-    export class StandaloneWithRoutesComponent &#x007B;}
-    </code></pre>
-
-    <h3>Output (WIP: lazy loaded route doesn't work yet)</h3>
-    <hr />
-
-    <standalone-with-routes-component></standalone-with-routes-component>
   `,
 })
 export class AppComponent {
