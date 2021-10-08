@@ -9,7 +9,6 @@ import {
   ModuleWithProviders,
   SchemaMetadata,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
@@ -35,7 +34,7 @@ export function Component(
     @NgModule({
       declarations: [[componentClazz]],
       // TODO: is it a good idea to include CommonModule by default?
-      imports: [CommonModule, processedImports],
+      imports: [processedImports],
       exports: [[componentClazz]],
       // TODO: surprisingly the JIT compiler still requires entryComponents for ComponentFactoryResolver to work
       entryComponents: [[componentClazz]],
