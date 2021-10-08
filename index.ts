@@ -3,11 +3,11 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { bootstrapComponent } from './standaloneShim';
 import { AppModule } from './app/app.module';
-import { BootstrappedStandaloneComponent } from './app/demo9/boostrappedStandalone.component';
+import { BootstrappedStandaloneComponent } from './app/demo8/boostrappedStandalone.component';
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
-  .then(ref => {
+  .then((ref) => {
     // Ensure Angular destroys itself on hot reloads.
     if (window['ngRef']) {
       window['ngRef'].destroy();
@@ -16,7 +16,7 @@ platformBrowserDynamic()
 
     // Otherwise, log the boot error
   })
-  .catch(err => console.error(err));
+  .catch((err) => console.error(err));
 
 // demo #9
 setTimeout(() =>
