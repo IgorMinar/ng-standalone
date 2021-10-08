@@ -213,7 +213,7 @@ import { Component, ElementRef, Inject } from '@angular/core';
     <dynamically-loading-component></dynamically-loading-component>
     <hr />
 
-    <h2>Demo #9: Bootstrap standalone component</h2>
+    <h2>Demo #8: Bootstrap standalone component</h2>
     <p>
       Standalone components can be bootstrapped!
     </p>
