@@ -13,7 +13,6 @@ import { StandaloneRedBorderDirective } from './demo5/standaloneRedBorder.direct
 import { StandaloneStarPipe } from './demo6/standaloneStar.pipe';
 import { DynamicallyLoadingComponent } from './demo7/dynamicallyLoading.component';
 import { DynamicallyLoadedComponent } from './demo7/dynamicallyLoaded.component';
-import { StandaloneWithRoutesComponent } from './demo_10/standaloneWithRoutes.component';
 
 @NgModule({
   imports: [
@@ -28,7 +27,6 @@ import { StandaloneWithRoutesComponent } from './demo_10/standaloneWithRoutes.co
     DynamicallyLoadingComponent['module'],
     // TODO: this is needed for demo #7 right now but should NOT be
     DynamicallyLoadedComponent['module'],
-    StandaloneWithRoutesComponent['module'],
   ],
   // additional provider for demo #4
   providers: [{ provide: locale, multi: true, useValue: 'fr' }],
