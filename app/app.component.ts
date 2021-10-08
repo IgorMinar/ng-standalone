@@ -183,7 +183,6 @@ import { Component, ElementRef, Inject } from '@angular/core';
     <!-------------- ------------->
 
     <h2>Demo #7: Dynamically Loaded Standalone Component</h2>
-    <b>NOTE: requires hacks in this stackblitz, won't need those in the final version</b>
     <p>
       Standalone components can be dynamically loaded.
     </p>
