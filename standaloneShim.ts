@@ -1,4 +1,14 @@
-import { Component as NgComponent, Directive as NgDirective, Pipe as NgPipe, NgModule, ViewContainerRef, ComponentFactoryResolver, Type, ModuleWithProviders, SchemaMetadata, Provider } from '@angular/core';
+import {
+  Component as NgComponent,
+  Directive as NgDirective,
+  Pipe as NgPipe,
+  NgModule,
+  ViewContainerRef,
+  ComponentFactoryResolver,
+  Type,
+  ModuleWithProviders,
+  SchemaMetadata,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -8,11 +18,7 @@ export function Component(
     standalone: true;
     // TODO: tighten up the types
     imports?: Array<Type<unknown> | ModuleWithProviders<unknown>>;
-    // TODO: is it a good idea to widen the type to support Provider[]?
-    exports?: Array<Type<unknown>|Provider[]>;
-    // TODO: Remove if we do keep `exports` with support for Provider[]
-    exportedProviders?: Provider[];
-    schemas?: Array<SchemaMetadata|any[]>;
+    schemas?: Array<SchemaMetadata | any[]>;
   }
 ): ClassDecorator {
   //console.log(`Standalone @Component declared:`, componentMetadata);
@@ -20,28 +26,19 @@ export function Component(
   const ngComponentDecorator = NgComponent(componentMetadata);
 
   const exportedProviders = [];
-  const processedImports = componentMetadata.imports?.map((importable) => importable['module'] ?? importable) ?? [];
+  const processedImports =
+    componentMetadata.imports?.map(
+      (importable) => importable['module'] ?? importable
+    ) ?? [];
 
-  const processedExports = componentMetadata.exports?.map((exportable) => {
-    // try to extract providers
-    if (Array.isArray(exportable)) {
-      exportedProviders.push(exportable);
-      return [];
-    }
-    // if no providers then return the standalone virtual module,
-    // or fall back on the assumption that the exportable is an NgModule.
-    return exportable['module'] ?? exportable
-  }) ?? [];
-
-  return function(componentClazz) {
+  return function (componentClazz) {
     @NgModule({
       declarations: [[componentClazz]],
       // TODO: is it a good idea to include CommonModule by default?
       imports: [CommonModule, processedImports],
-      exports: [[componentClazz], processedExports],
+      exports: [[componentClazz]],
       // TODO: surprisingly the JIT compiler still requires entryComponents for ComponentFactoryResolver to work
       entryComponents: [[componentClazz]],
-      providers: (exportedProviders.length ? exportedProviders : null) ?? componentMetadata.exportedProviders ?? [],
       schemas: componentMetadata.schemas,
     })
     class VirtualNgModule {}
@@ -51,7 +48,6 @@ export function Component(
     return ngComponentDecorator(componentClazz);
   };
 }
-
 
 export function Directive(
   directiveMedatada: NgDirective & {
@@ -63,13 +59,16 @@ export function Directive(
 
   const ngDirectiveDecorator = NgDirective(directiveMedatada);
 
-  const processedImports = directiveMedatada.imports?.map((importable) => importable['module'] ?? importable) ?? [];
+  const processedImports =
+    directiveMedatada.imports?.map(
+      (importable) => importable['module'] ?? importable
+    ) ?? [];
 
-  return function(directiveClazz) {
+  return function (directiveClazz) {
     @NgModule({
       declarations: [[directiveClazz]],
       exports: [[directiveClazz]],
-      imports: [processedImports]
+      imports: [processedImports],
     })
     class VirtualNgModule {}
 
@@ -78,7 +77,6 @@ export function Directive(
     return ngDirectiveDecorator(directiveClazz);
   };
 }
-
 
 export function Pipe(
   pipeMetadata: NgPipe & {
@@ -90,13 +88,16 @@ export function Pipe(
 
   const ngPipeDecorator = NgPipe(pipeMetadata);
 
-  const processedImports = pipeMetadata.imports?.map((importable) => importable['module'] ?? importable) ?? [];
+  const processedImports =
+    pipeMetadata.imports?.map(
+      (importable) => importable['module'] ?? importable
+    ) ?? [];
 
-  return function(pipeClazz) {
+  return function (pipeClazz) {
     @NgModule({
       declarations: [[pipeClazz]],
       exports: [[pipeClazz]],
-      imports: [processedImports]
+      imports: [processedImports],
     })
     class VirtualNgModule {}
 
@@ -130,19 +131,24 @@ export const viewContainerRefShim = {provide: ViewContainerRefShim, useClass: Vi
 export class ViewContainerRefShim {
   constructor(
     private viewContainerRef: ViewContainerRef,
-    private componentFactoryResolver: ComponentFactoryResolver) {}
+    private componentFactoryResolver: ComponentFactoryResolver
+  ) {}
 
   createComponent<T>(componetClazz: Type<T>) {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componetClazz);
-    
+    const componentFactory =
+      this.componentFactoryResolver.resolveComponentFactory(componetClazz);
+
     this.viewContainerRef.createComponent(componentFactory);
   }
 }
 
-export function bootstrapComponent<T>(componetClazz: Type<T>, platformModule = BrowserModule) {
+export function bootstrapComponent<T>(
+  componetClazz: Type<T>,
+  platformModule = BrowserModule
+) {
   @NgModule({
     imports: [platformModule, componetClazz['module']],
-    bootstrap: [componetClazz]
+    bootstrap: [componetClazz],
   })
   class VirtualBootstrapNgModule {}
 
