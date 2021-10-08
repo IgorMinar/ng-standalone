@@ -183,7 +183,7 @@ import { Component, ElementRef, Inject } from '@angular/core';
     <!-------------- ------------->
 
     <h2>Demo #7: Dynamically Loaded Standalone Component</h2>
-    <b>THIS DEMO IS WIP AND NOT YET WORKING CORRECTLY</b>
+    <b>NOTE: requires hacks in this stackblitz, won't need those in the final version</b>
     <p>
       Standalone components can be dynamically loaded.
     </p>
@@ -199,15 +199,16 @@ import { Component, ElementRef, Inject } from '@angular/core';
           private vcRef: ViewContainerRef,
         ) &#x007B;}
 
-        async ngOnInit() &#x007B;
-          const &#x007B; DynamicallyLoadedComponent } = await import('./dynamicallyLoaded.component');
-          this.vcRef.createComponent(DynamicallyLoadedComponent);
+        ngOnInit() &#x007B;
+          import('./dynamicallyLoaded.component').then((m) =>
+            this.vcRef.createComponent(m.DynamicallyLoadedComponent)
+          );
         }
       }
 
     </code></pre>
 
-    <h3>Output (WIP: not yet working without major hacks)</h3>
+    <h3>Output</h3>
     <hr />
     <dynamically-loading-component></dynamically-loading-component>
     <hr />
