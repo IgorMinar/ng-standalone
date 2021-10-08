@@ -129,88 +129,6 @@ import { Component, ElementRef, Inject } from '@angular/core';
     <standalone-with-providers-component></standalone-with-providers-component>
     <hr />
 
-    <!-------------- ------------->
-
-    <h2>Demo #4b: Standalone Component with Exported Multi Providers</h2>
-    <p>
-      This one provides a multiprovider which it then uses in the template like
-      demo #4 but instead of requiring an intermediate NgModule
-      "MyNgModuleWithProvider", we use the new
-      <code>exportedProviders</code> property.
-    </p>
-
-    <pre><code ngNonBindable>
-    export const localeB = new InjectionToken&lt;string[]>('locale');
-
-    @Component(&#x007B;
-      selector: 'standalone-with-exported-providers-component',
-      standalone: true,
-      // TODO: should this be explicit?
-      // imports: [CommonModule],
-      exportedProviders: [
-        &#x007B; provide: localeB, multi: true, useValue: 'en' },
-        &#x007B; provide: localeB, multi: true, useValue: 'sk' }
-      ],
-      template: \`
-        Supported locales:
-        &lt;ul>
-          &lt;li *ngFor="let locale of locales">&#x007B;&#x007B; locale }}&lt;/li>
-        &lt;/ul>
-      \`
-    })
-    export class StandaloneWithExportedProvidersComponent &#x007B;
-      constructor(@Inject(locale) protected locales) &#x007B;}
-    }
-    
-    </code></pre>
-
-    <h3>Output</h3>
-    <hr />
-    <standalone-with-exported-providers-component></standalone-with-exported-providers-component>
-    <hr />
-
-    <!-------------- ------------->
-
-    <h2>Demo #4c: Standalone Component Multi Providers in exports</h2>
-    <p>
-      This one provides a multiprovider which it then uses in the template like
-      demo #4 but instead of requiring "new"
-      <code>exportedProviders</code> property and concept, we simple export it
-      via the existing <code>exports</code> field.
-    </p>
-
-    <pre><code ngNonBindable>
-    export const localeB = new InjectionToken&lt;string[]>('locale');
-
-    @Component(&#x007B;
-      selector: 'standalone-with-exported-providers-component',
-      standalone: true,
-      // TODO: should this be explicit?
-      // imports: [CommonModule],
-      exports: [[
-        &#x007B; provide: localeB, multi: true, useValue: 'en' },
-        &#x007B; provide: localeB, multi: true, useValue: 'sk' }
-      ]],
-      template: \`
-        Supported locales:
-        &lt;ul>
-          &lt;li *ngFor="let locale of locales">&#x007B;&#x007B; locale }}&lt;/li>
-        &lt;/ul>
-      \`
-    })
-    export class StandaloneWithProvidersInExportsComponent &#x007B;
-      constructor(@Inject(locale) protected locales) &#x007B;}
-    }
-    
-    </code></pre>
-
-    <h3>Output</h3>
-    <hr />
-    <standalone-with-providers-in-exports-component></standalone-with-providers-in-exports-component>
-    <hr />
-
-    <!-------------- ------------->
-
     <h2>Demo #5: Standalone Directive</h2>
     <p>
       This shows that standalone directives work in the same style as standalone
@@ -295,99 +213,6 @@ import { Component, ElementRef, Inject } from '@angular/core';
     <hr />
     <dynamically-loading-component></dynamically-loading-component>
     <hr />
-
-    <!-------------- ------------->
-
-    <h2>Demo #8: Exporting Component - Support for collection of entities</h2>
-    <p>
-      Standalone components can export other standalone entities, to support
-      use-cases where a single primary entity (usually a component) optionally
-      cooperates with other directives, components, and pipes to enhance it's
-      functionality.
-    </p>
-
-    <p>
-      Typical examples of this use-case are
-      <a href="https://material.angular.io/components/tabs/api"
-        >Angular Material Tabs</a
-      >,
-      <a href="https://material.angular.io/components/table/api"
-        >Angular Material Table</a
-      >, and
-      <a href="https://ng-bootstrap.github.io/#/components/carousel/api"
-        >ng-bootstrap Carousel</a
-      >
-    </p>
-
-    <pre><code ngNonBindable>
-      @Directive(&#x007B;
-        selector: '[blueBorder]',
-        standalone: true,
-        host: &#x007B;
-          style: 'border: 2px dashed blue'
-        }
-      })
-      class BlueBorderDirective &#x007B;}
-      
-      @Pipe(&#x007B;
-        name: 'blackHole',
-        standalone: true
-      })
-      class BlackHolePipe implements PipeTransform &#x007B;
-        transform(value) &#x007B;
-          return '';
-        }
-      }
-      
-      @Component(&#x007B;
-        selector: 'exported-child-component',
-        standalone: true,
-        styles: [':host &#x007B; display: block; border: 1px dashed red }'],
-        template: \`
-          I'm an exported child component
-        \`
-      })
-      class ExportedChildComponent &#x007B;}
-      
-      @Component(&#x007B;
-        selector: 'exporting-component',
-        standalone: true,
-        exports: [BlueBorderDirective, BlackHolePipe, ExportedChildComponent],
-        styles: [':host &#x007B; display: block }'],
-        template: \`
-          I bring some friends along!
-          &lt;button (click)="confirm()">click to confirm&lt;/button>
-          &#x007B;&#x007B; counter }}
-          &lt;hr />
-          &lt;ng-content>&lt;/ng-content>
-        \`
-      })
-      export class ExportingComponent &#x007B;
-        counter = 0;
-      
-        confirm() &#x007B;
-          this.counter++;
-          console.log('confirmed!');
-        }
-      }
-
-      <hr>
-
-      &lt;exporting-component blueBorder>
-        {{ "can you see this? I bet you can\'t!" | blackHole }}
-        &lt;exported-child-component>&lt;/exported-child-component>
-      &lt;/exporting-component>
-    </code></pre>
-
-    <h3>Output</h3>
-    <hr />
-    <exporting-component blueBorder>
-      {{ "can you see this? I bet you can't" | blackHole }}
-      <exported-child-component></exported-child-component>
-    </exporting-component>
-    <hr />
-
-    <!-------------- ------------->
 
     <h2>Demo #9: Bootstrap standalone component</h2>
     <p>
@@ -484,7 +309,7 @@ import { Component, ElementRef, Inject } from '@angular/core';
     <hr />
 
     <standalone-with-routes-component></standalone-with-routes-component>
-  `
+  `,
 })
 export class AppComponent {
   constructor(@Inject(ElementRef) private elementRef: ElementRef) {}
